@@ -1,17 +1,12 @@
-<div class="col-md-12">
-  <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-6">
-          <p> input can write only letters English </p>
-          <input type="text" appInput2Prevent="Arabic" class="form-control">
-        </div>
-        <div class="col-md-6">
-          <p> input can write only letters Arabic </p>
-          <input type="text" appInput2Prevent="English" class="form-control">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<app-leaflet-map 
+[drawPolygon]="true"
+[drawPolyline]="true"
+[drawMarker]="false"
+[drawCircleMarker]="false"
+[drawFreeLine]="true"
+[singleMaker]='singleMaker' 
+[ListSingleMaker]="ListSingleMaker" 
+[ListGroupMaker]="ListGroupMaker"
+[CoordinatesPolygon]="CoordinatesPolygon">
+
+</app-leaflet-map>
