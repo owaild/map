@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "0a515002-d94a-4789-8d55-3346ee6b9f88"
+    "analytics": "c8cede0b-ace1-451a-89f0-13d2c7850076"
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Frontend-test": {
+    "my-map": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Frontend-test",
+            "outputPath": "dist/my-map",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Frontend-test:build"
+            "browserTarget": "my-map:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Frontend-test:build:production"
+              "browserTarget": "my-map:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Frontend-test:build"
+            "browserTarget": "my-map:build"
           }
         },
         "test": {
@@ -119,16 +119,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Frontend-test:serve"
+            "devServerTarget": "my-map:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Frontend-test:serve:production"
+              "devServerTarget": "my-map:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Frontend-test"
+  "defaultProject": "my-map"
 }

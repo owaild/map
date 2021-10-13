@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { InputPreventDirective } from './@core/directives/input-prevent.directive';
-import { Input2PreventDirective } from './@core/directives/input-prevent2.directive';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import { LeafletMapComponent } from './map/leaflet-map/leaflet-map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InputPreventDirective,Input2PreventDirective
+    LeafletMapComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
