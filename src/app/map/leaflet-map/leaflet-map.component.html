@@ -3,3 +3,15 @@
   <button *ngIf="drawFreeLine" class="btn_Draw" [ngClass]="{'btn_Draw_active': line}" (click)="linea.click()">Draw Free Line</button>
   <input class="check" style="display: none;" (change)="check()" [(ngModel)]="line" #linea name="line" type="checkbox" name="" id="">
 </div>
+
+<div class="screch_continer" style="width: 600px;">
+  <input [(ngModel)]="search"  (input)="searchAutoComplete()" placeholder="Search" 
+  name="search"  />
+  
+  
+  <div class="result_search">
+    <p *ngFor="let item of searchList" (click)="setItem(item)">
+      {{item.address}}
+    </p>
+  </div>
+</div>
