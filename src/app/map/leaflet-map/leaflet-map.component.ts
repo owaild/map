@@ -37,6 +37,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
   @Input() ListGroupMaker!: singleMaker[]
   configuration$ = {
     OpenStreetMapAutoCompleteService: "https://nominatim.openstreetmap.org/search?format=json&accept-language=ar&q=",
+    OpenStreetMapGetInfoService: "https://nominatim.openstreetmap.org/reverse?format=jsonv2&&accept-language=ar&"
   }
   searchList: any
   line: boolean = false
@@ -113,6 +114,13 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
         animate: true,
         duration: 1 // in seconds
       });
+    }else{
+   
+        this.map.flyTo([event.lat, event.lon], 14, {
+          animate: true,
+          duration: 1 // in seconds
+        });
+      
     }
   }
 
@@ -177,35 +185,14 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
       });
     }
 
-
+    let th=this
     // click on map
     this.map.on("click", function (evt: any) {
-      console.log(evt);
-    });
-    // drawControl in map 
-    const drawnItems = L.featureGroup().addTo(this.map);
-    const drawControl = new L.Control.Draw({
-      edit: {
-        featureGroup: drawnItems,
-      },
-      draw: {
-        polygon: this.drawPolygon,
-        polyline: this.drawPolyline,
-        marker: this.drawMarker,
-        circlemarker: this.drawCircleMarker
-      }
+      console.log(evt.latlng);
+      th.getInfo(evt.latlng)
     });
 
-    this.map.addControl(drawControl);
-
-    this.map.on("draw:created", function (evt: any) {
-      var type = evt.layerType,
-        layer = evt.layer;
-      drawnItems.addLayer(layer);
-      console.log(type, layer);
-    });
-
-
+    
     // options leafIcon
     let leafIcon = L.Icon.extend({
       options: {
@@ -220,6 +207,38 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
     });
 
     const greenIcon = new leafIcon();
+    // drawControl in map 
+    const drawnItems = L.featureGroup().addTo(this.map);
+    const drawControl = new L.Control.Draw({
+      edit: {
+        featureGroup: drawnItems,
+      },
+      draw: {
+        polygon: this.drawPolygon,
+        polyline: this.drawPolyline,
+        marker: this.drawMarker? {icon: greenIcon} : false,
+        circlemarker: this.drawCircleMarker
+      }
+    });
+
+    this.map.addControl(drawControl);
+
+    this.map.on("draw:created", function (evt: any) {
+      debugger
+      if (evt.layerType=='marker') {  
+      let type = evt.layerType,
+      layer = evt.layer;
+      drawnItems.addLayer(layer);
+      console.log(type, layer);
+      }else{
+        var type = evt.layerType,
+      layer = evt.layer;
+      drawnItems.addLayer(layer);
+      console.log(type, layer);
+      }
+    });
+
+
     // add single marker leafIcon
     if (this.singleMaker != undefined) {
       L.marker([this.singleMaker.lat, this.singleMaker.long], { icon: greenIcon }).bindPopup(this.singleMaker.title).addTo(this.map);
@@ -259,6 +278,15 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
 
   check() {
     console.log(this.line);
+  }
+  getInfo(event:any){
+
+    this.httpClient
+      .get(this.configuration$.OpenStreetMapGetInfoService + `lat=${event.lat}&lon=${event.lng}`)
+      .subscribe((value: any) => {
+        console.log(value);
+        
+      });
   }
 
 
