@@ -21,8 +21,9 @@ import { GoogleMapComponent } from './map/google-map/google-map.component';
     AppRoutingModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAKI3TuBMvR3SZUDhzpEwoR5MaK6mp5u5E',
-      libraries: ['places', 'drawing', 'geometry']
+      apiKey: 'AIzaSyAQPAUG_pAgy43fobBvTAMGNFnDwZzkfdA',
+      libraries: ['places', 'drawing', 'geometry'],
+      
      }),
     HttpClientModule
   ],

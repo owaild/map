@@ -11,17 +11,31 @@ export class GoogleMapComponent implements OnInit {
   lng = 31.0499382019043;
   constructor() { }
   drawingManager:any
-  ngOnInit(): void {}
+  public customStyle = [{  
+    "featureType": "poi.medical",  
+    "elementType": "all",  
+    "stylers": [{  
+        visibility: "off",  
+    }]  
+}, ]; 
+  ngOnInit(): void {
+  
+  }
+  map:any
   onMapReady(map :any) {
     this.initDrawingManager(map);
   }
 
   initDrawingManager(map: any) {
+    this.map=map;
+    console.log(map);
+    this.map.mapTypeId='satellite'
     const options = {
       drawingControl: true,
       drawingControlOptions: {
         drawingModes: ["polygon","circle","polyline",'rectangle','marker']
       },
+      
       polygonOptions: {
         draggable: true,
         editable: true
@@ -45,37 +59,34 @@ export class GoogleMapComponent implements OnInit {
       if (event.type == 'circle') {
         var radius = event.overlay.getRadius();
         console.log(radius);
-        
       }
     });
-    let t
-    google.maps.event.addListener(google.maps, 'click', (event :any) => {
-      var poly = new google.maps.Polyline({ map: google.maps, clickable: false });
+   
+    map.addListener("click", (e:any) => {
+      var poly = new google.maps.Polyline({ map: this.map, clickable: false });
       var move = google.maps.event.addListener(
-        google.maps,
+        map,
         'mousemove',
-        function (e :any) {
+        function (e:any) {
           poly.getPath().push(e.latLng);
         }
       );
 
-      //mouseup-listener
-      google.maps.event.addListenerOnce(google.maps, 'mouseup', function (e :any) {
-        google.maps.event.removeListener(move);
+       //mouseup-listener
+       google.maps.event.addListenerOnce('mouseup', function (e:any) {
+        map.removeListener(move);
         var path = poly.getPath();
         poly.setMap(null);
-        poly = new google.maps.Polygon({ map: google.maps, path: path });
+        poly = new google.maps.Polygon({ map: map, path: path });
 
-        google.maps.event.clearListeners(google.maps.getDiv(), 'mousedown');
+        map.clearListeners(map.getDiv(), 'mousedown');
 
         // enable()
       });
-      t = setTimeout(function () {
-        console.log('click');
-      }, 500);
-    });
+   });
+   
   }
-  
+ 
 
   
 }
