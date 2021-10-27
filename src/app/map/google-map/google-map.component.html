@@ -1,3 +1,15 @@
+
+<div style="width: 100%;height: 600px;position: relative;">
 <agm-map [zoom]="15"  (mapReady)="onMapReady($event)" [latitude]="lat" [longitude]="lng"  > 
     <agm-marker [latitude]="lat" [longitude]="lng" [label]="'M'"> </agm-marker>
 </agm-map>
+<input class="check" style="display: none;" (change)="check()" [(ngModel)]="line" #linea name="line" type="checkbox" name="" id="">
+<div class="btn_Draw" *ngIf="map">
+    <button *ngIf="drawFreeLine"  [ngClass]="{'btn_Draw_active': line}" (click)="linea.click()">Draw Free Line</button>
+
+    <button   (click)="changeType('hybrid')" [ngClass]="{'btn_Draw_active': map.mapTypeId=='hybrid'}">hybrid</button>
+    <button   (click)="changeType('roadmap')" [ngClass]="{'btn_Draw_active': map.mapTypeId=='roadmap'}">roadmap</button>
+    
+</div>
+
+</div>

@@ -1,3 +1,65 @@
 agm-map {
-    height: 400px;
+    height: 600px;
    }
+
+   div.map {
+    height: 100%;
+  }
+
+
+  .btn_Draw{
+    position:absolute;
+    bottom: 15px;
+    left: 10px;
+    z-index: 999;
+    width: 320px;
+    display: block;
+    button{
+        background: #fff;
+        border: 1px solid gray;
+        color: #464646;
+        display: inline-block;
+        // height: 25px;
+        padding: 10px 15px;
+        font-weight: 400;
+        line-height: 12px;
+        border-color: #0000001f!important;
+        box-shadow: 0 0 2px rgba(0,0,0,.2)!important;
+        margin: 0 4px;
+    }
+   
+  }
+
+  .btn_Draw_active{
+    background: #6c757d !important;
+    border: 1px solid gray !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 0.2rem rgb(108 117 125 / 50%) !important;
+  }
+  input{
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid #8080809c;
+    background: #ffffff94;
+    padding:  0 10px;
+  }
+.screch_continer{
+  width: 600px;
+  display: block;
+  margin: auto;
+  position: absolute;
+  top: 15px;
+  z-index: 9999;
+  right: 36%;
+}
+.result_search{
+  width: 100%;
+  max-height: 400px;
+  overflow-y:auto;
+  background: #fff;
+  float: right;
+  p{
+    padding: 10px !important;
+  }
+}
