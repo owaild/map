@@ -3,7 +3,10 @@ import 'leaflet';
 import "leaflet.markercluster";
 import 'leaflet-draw';
 import FreeDraw, { NONE } from 'leaflet-freedraw';
-declare const L: any; 
+// @ts-ignore
+import * as html2pdf from 'html2pdf.js';
+
+// declare const L: any; 
 interface singleMaker{
   lat: number,
   long:number,
@@ -74,7 +77,34 @@ CoordinatesPolygon:any=[[
   }
 
 
+  exportToPDF(ContainerName :any, fileName:any): void {
+    var data = document.getElementById(ContainerName);
+ 
+    let opt={  margin: 10,
+    filename: "my.pdf",
+    image: {type: 'jpeg', quality: 1},
+    html2canvas: {dpi: 72, letterRendering: true},
+    jsPDF: {unit: 'mm', format: 'a4', orientation: 'landscape'},
+    }
+  
+    // Save the PDF
+    html2pdf().set(opt).from(data).toPdf().get('pdf').then(function (pdfObject: any) {
+      // Your code to alter the pdf object.
+      debugger
+      var number_of_pages = pdfObject.internal.getNumberOfPages()
+      var pdf_pages = pdfObject.internal.pages
+      var myFooter = "Footer info"
+      for (var i = 1; i < pdf_pages.length; i++) {
+          // We are telling our pdfObject that we are now working on this page
+          pdfObject.setPage(i)
+          // The 10,200 value is only for A4 landscape. You need to define your own for other page sizes
+          pdfObject.text(myFooter, 10, 200)
+          pdfObject.text('Page ' + i + ' of ' + number_of_pages, pdfObject.internal.pageSize.getWidth() - 50, pdfObject.internal.pageSize.getHeight() - 10);
 
+      }
+    }).save();
+    // html2pdf().set(opt).from(data).save();
+  }
 
 
   ngOnInit(): void {
