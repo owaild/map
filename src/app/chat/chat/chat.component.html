@@ -1,0 +1,124 @@
+
+  <div class="col-md-12">
+    <div class="row">
+        <p class="col-md-6 title-s">
+            <span>Chatting   </span>           
+        </p>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="header-card">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="card-logo" src="assets/img/users.svg" alt="" />
+                <p class="card-titleN">Chatting</p>
+            </div>
+            <div class="col-md-6 " style="display: none;">
+                <!-- <button class="btn btn-FilterN pull-right"></button> -->
+            </div>
+        </div>
+    </div>
+    <div class="body-card">
+      <div class="messaging">
+        <div class="inbox_msg">
+          <div class="inbox_people">
+            <div class="inbox_chat scroll">
+              <div class="chat_list active_chat" *ngFor="let item of clients">
+                <div class="chat_people" (click)="viewChatMessages(item)">
+                  <div class="chat_img">
+                    <img src="https://ptetutorials.com/images/user-profile.png" />
+                  </div>
+                  <div class="chat_ib">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.city }} ({{item.phone}})</p>                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chat">
+            <div class="chat-header">
+              <div class="row">
+                <div class="col-md-10">
+                  <h6 class="chat-user">{{ currentChatClient.name }}</h6>
+                </div>
+                <div class="col-md-1">
+                  <button 
+                    class="btn btn-success btn-strat"
+                    type="button"
+                    (click)="startChatWithCLient()"
+                    *ngIf="currentChatClient.connectionId != '' && currentChatClient.isHandled==false && currentChatClient.isInProcess==false"
+                  >
+                    Start
+                  </button>
+                </div>
+                <div class="col-md-1">
+                  <div class="close-chat">
+                    <button
+                      class="chatbox__title__close"
+                      (click)="closeChat()"
+                      *ngIf="currentChatClient.isHandled==false && currentChatClient.isInProcess==true"
+                    >
+                      <span>
+                        <svg viewBox="0 0 12 12" width="30px" height="20px">
+                          <line
+                            stroke="#000000"
+                            x1="11.75"
+                            y1="0.25"
+                            x2="0.25"
+                            y2="11.75"
+                          ></line>
+                          <line
+                            stroke="#000000"
+                            x1="11.75"
+                            y1="11.75"
+                            x2="0.25"
+                            y2="0.25"
+                          ></line>
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mesgs">
+              <div class="msg_history" #scrollbody *ngIf="messageList">
+                <div *ngFor="let msg of messageList">
+                  <div class="{{msg.type === 'Send' ? 'outgoing_msg' : 'incoming_msg'}}" >
+                    <div class="{{ msg.type === 'Send' ? 'sent_msg' : 'received_msg' }}" >
+                      <div class="{{msg.type === 'Send' ? '' : 'received_withd_msg'}}">
+                        <p>{{ msg.message }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="type_msg" *ngIf="currentChatClient.isHandled==false && currentChatClient.isInProcess==true">
+                <div class="input_msg_write">
+                  <input
+                    type="text"
+                    class="write_msg"
+                    placeholder="Type your message here..."
+                    tabindex="0"
+                    dir="ltr"
+                    spellcheck="false"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    contenteditable="true"
+                    [value]="txtMessage"
+                    
+                    (keydown.enter)="sendMessage()"
+                  />
+                  <!-- (input)="txtMessage = $event.target.value" -->
+                  <button class="msg_send_btn" type="button" (click)="sendMessage()">
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
